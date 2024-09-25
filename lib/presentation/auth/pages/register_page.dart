@@ -10,7 +10,7 @@ import '../../../core/components/buttons.dart';
 import '../../../core/components/custom_text_field.dart';
 import '../../../core/constants/colors.dart';
 import '../widgets/register_success_dialog.dart';
-import 'bloc/register/register_bloc.dart';
+import '../bloc/register/register_bloc.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
