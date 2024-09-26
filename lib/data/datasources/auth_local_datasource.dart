@@ -18,6 +18,6 @@ class AuthLocalDatasource {
     if (authData == null) {
       throw Exception("No authentication data found");
     }
-    return AuthResponseModel.fromJson(authData!);
+    return AuthResponseModel.fromJson(authData);
   }
 }

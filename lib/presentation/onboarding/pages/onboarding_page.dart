@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cbt_app/core/extensions/build_context_ext.dart';
+import 'package:flutter_cbt_app/data/datasources/onboarding_local_datasource.dart';
 // import 'package:flutter_cbt/core/extensions/build_context_ext.dart';
 
 import '../../../core/assets/assets.gen.dart';
@@ -88,7 +89,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       currentPage++;
                       setState(() {});
                     } else {
-                      navigate();
+                      OnboardingLocalDatasource()
+                          .setOnboardingPassed(); // Menyimpan status onboarding
+                      navigate(); // Mengarahkan ke halaman login
                     }
                   },
                   label: 'Continue',

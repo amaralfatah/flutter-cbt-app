@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cbt_app/data/datasources/auth_local_datasource.dart';
+import 'package:flutter_cbt_app/data/datasources/onboarding_local_datasource.dart';
 import 'package:flutter_cbt_app/data/models/responses/auth_response_model.dart';
 import 'package:flutter_cbt_app/presentation/auth/bloc/logout/logout_bloc.dart';
+import 'package:flutter_cbt_app/presentation/auth/pages/login_page.dart';
 import 'package:flutter_cbt_app/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter_cbt_app/presentation/onboarding/pages/onboarding_page.dart';
 import 'presentation/auth/bloc/register/register_bloc.dart';
@@ -32,14 +34,29 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: FutureBuilder<AuthResponseModel>(
-            future: AuthLocalDatasource().getAuthData(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return const DashboardPage();
-              } else {
-                return const OnboardingPage();
-              }
-            }),
+          future: AuthLocalDatasource().getAuthData(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return const DashboardPage(); // Jika sudah login
+            } else {
+              return FutureBuilder<bool>(
+                future: OnboardingLocalDatasource().getIsFirstTime(),
+                builder: (context, onboardingSnapshot) {
+                  if (onboardingSnapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    // Menampilkan loading indicator saat menunggu hasil
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (onboardingSnapshot.hasData &&
+                      onboardingSnapshot.data == true) {
+                    return const OnboardingPage(); // Tampilkan onboarding
+                  } else {
+                    return const LoginPage(); // Tampilkan halaman login jika sudah melewati onboarding
+                  }
+                },
+              );
+            }
+          },
+        ),
       ),
     );
   }
