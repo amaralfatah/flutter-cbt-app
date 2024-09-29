@@ -1,24 +1,58 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/components/custom_scaffold.dart';
+import '../bloc/content/content_bloc.dart';
 
-class TipsAndTricksPage extends StatelessWidget {
+class TipsAndTricksPage extends StatefulWidget {
   const TipsAndTricksPage({super.key});
+
+  @override
+  State<TipsAndTricksPage> createState() => _TipsAndTricksPageState();
+}
+
+class _TipsAndTricksPageState extends State<TipsAndTricksPage> {
+  void initState() {
+    context.read<ContentBloc>().add(const ContentEvent.getContentById('2'));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       appBarTitle: const Text('Tips dan Trik'),
-      body: ListView(
-        padding: const EdgeInsets.all(30.0),
-        children: const [
-          Text(
-            'Bacalah instruksi dengan cermat sebelum memulai. Pastikan Anda memahami apa yang diharapkan dalam tes ini, termasuk aturan waktu dan cara menjawab soal-soal.\n\nSaat membaca soal, pastikan Anda memahami inti pertanyaan. Baca soal beberapa kali jika diperlukan untuk memastikan pemahaman Anda.\n\nTes potensi akademik sering memiliki waktu terbatas, jadi penting untuk mengatur waktu dengan baik. Tentukan berapa waktu yang akan Anda alokasikan untuk setiap pertanyaan atau bagian.\n\nIdentifikasi kata kunci dalam soal yang memberikan petunjuk tentang apa yang diperlukan. Misalnya, jika ada pertanyaan "definisikan," Anda harus memberikan definisi. Jika ada pertanyaan "bandingkan," Anda harus membandingkan.',
-            textAlign: TextAlign.justify,
-            style: TextStyle(fontSize: 18.0),
-          ),
-        ],
+      body: BlocBuilder<ContentBloc, ContentState>(
+        builder: (context, state) {
+          return state.maybeWhen(
+            orElse: () {
+              return const Center(child: Text('Error'));
+            },
+            loading: () => const Center(child: CircularProgressIndicator()),
+            loaded: (data) {
+              return ListView(
+                // padding: const EdgeInsets.fromLTRB(30.0, 0, 30.0, 30.0),
+                children: [
+                  data.data.isEmpty
+                      ? const SizedBox()
+                      : Image.network(
+                          data.data[0].image,
+                          width: MediaQuery.of(context).size.width,
+                          height: 450,
+                          fit: BoxFit.cover,
+                        ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      data.data.isEmpty ? 'no content' : data.data[0].content,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(fontSize: 18.0),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
       ),
     );
   }

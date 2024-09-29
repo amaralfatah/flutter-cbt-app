@@ -5,6 +5,7 @@ import 'package:flutter_cbt_app/data/datasources/onboarding_local_datasource.dar
 import 'package:flutter_cbt_app/data/models/responses/auth_response_model.dart';
 import 'package:flutter_cbt_app/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:flutter_cbt_app/presentation/auth/pages/login_page.dart';
+import 'package:flutter_cbt_app/presentation/home/bloc/content/content_bloc.dart';
 import 'package:flutter_cbt_app/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter_cbt_app/presentation/onboarding/pages/onboarding_page.dart';
 import 'presentation/auth/bloc/login/login_bloc.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => LoginBloc(),
         ),
+        BlocProvider(
+          create: (context) => ContentBloc(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
