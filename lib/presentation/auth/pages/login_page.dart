@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                     SnackBar(
                       content: Text(
                         message,
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                       ),
                       backgroundColor: AppColors.lightRed,
                     ),

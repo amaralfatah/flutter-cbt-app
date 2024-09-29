@@ -1,10 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cbt_app/main.dart';
-import 'package:flutter_cbt_app/presentation/auth/pages/login_page.dart';
 import 'package:flutter_cbt_app/presentation/home/bloc/content/content_bloc.dart';
 
-import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/custom_scaffold.dart';
 
 class AboutUsPage extends StatefulWidget {
@@ -38,8 +36,12 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 children: [
                   data.data.isEmpty
                       ? const SizedBox()
-                      : Image.network(
-                          data.data[0].image,
+                      : CachedNetworkImage(
+                          imageUrl: data.data[0].image,
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                           width: MediaQuery.of(context).size.width,
                           height: 450,
                           fit: BoxFit.cover,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,6 +13,7 @@ class TipsAndTricksPage extends StatefulWidget {
 }
 
 class _TipsAndTricksPageState extends State<TipsAndTricksPage> {
+  @override
   void initState() {
     context.read<ContentBloc>().add(const ContentEvent.getContentById('2'));
     super.initState();
@@ -34,8 +36,12 @@ class _TipsAndTricksPageState extends State<TipsAndTricksPage> {
                 children: [
                   data.data.isEmpty
                       ? const SizedBox()
-                      : Image.network(
-                          data.data[0].image,
+                      : CachedNetworkImage(
+                          imageUrl: data.data[0].image,
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                           width: MediaQuery.of(context).size.width,
                           height: 450,
                           fit: BoxFit.cover,

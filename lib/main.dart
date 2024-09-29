@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cbt_app/data/datasources/auth_local_datasource.dart';
+import 'package:flutter_cbt_app/data/datasources/materi_remote_datasource.dart';
 import 'package:flutter_cbt_app/data/datasources/onboarding_local_datasource.dart';
 import 'package:flutter_cbt_app/data/models/responses/auth_response_model.dart';
 import 'package:flutter_cbt_app/presentation/auth/bloc/logout/logout_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_cbt_app/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter_cbt_app/presentation/onboarding/pages/onboarding_page.dart';
 import 'presentation/auth/bloc/login/login_bloc.dart';
 import 'presentation/auth/bloc/register/register_bloc.dart';
+import 'presentation/materi/bloc/materi/materi_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +35,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ContentBloc(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => MateriBloc(MateriRemoteDatasource()),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
