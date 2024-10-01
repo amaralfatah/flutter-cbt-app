@@ -4,9 +4,14 @@ import '../../../core/components/buttons.dart';
 import '../../../core/constants/colors.dart';
 import 'answer_choices.dart';
 
-class QuizMultipleChoice extends StatelessWidget {
+class QuizMultipleChoice extends StatefulWidget {
   const QuizMultipleChoice({super.key});
 
+  @override
+  State<QuizMultipleChoice> createState() => _QuizMultipleChoiceState();
+}
+
+class _QuizMultipleChoiceState extends State<QuizMultipleChoice> {
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<String> selectedAnswer = ValueNotifier("");
