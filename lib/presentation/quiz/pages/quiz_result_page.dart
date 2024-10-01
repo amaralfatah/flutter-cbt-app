@@ -20,28 +20,31 @@ class QuizResultPage extends StatelessWidget {
 
     final List<QuizModel> datas = [
       QuizModel(
-        image: Assets.images.materi1.path,
+        image: Assets.images.quizCategory.path,
         name: 'Tes Angka',
         type: 'Multiple Choice',
         description:
             'Tes angka adalah suatu jenis tes psikometri yang dirancang untuk mengukur kemampuan individu dalam memahami, menganalisis, dan menyelesaikan masalah yang melibatkan angka dan matematika.',
         duration: 30,
+        kategori: 'Numeric',
       ),
       QuizModel(
-        image: Assets.images.materi2.path,
+        image: Assets.images.quizCategory.path,
         name: 'Tes Logika',
         type: 'Multiple Choice',
         description:
             'Tes logika adalah metode evaluasi yang digunakan untuk mengukur kemampuan seseorang dalam berpikir secara logis, analitis, dan rasional',
         duration: 30,
+        kategori: 'Logika',
       ),
       QuizModel(
-        image: Assets.images.materi1.path,
+        image: Assets.images.quizCategory.path,
         name: 'Tes Verbal',
         type: 'Multiple Choice',
         description:
             'Tes verbal adalah suatu metode evaluasi yang digunakan untuk mengukur kemampuan seseorang dalam menggunakan dan memahami bahasa lisan atau tertulis.',
         duration: 30,
+        kategori: 'Verbal',
       ),
     ];
 
