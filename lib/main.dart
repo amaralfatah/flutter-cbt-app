@@ -10,7 +10,10 @@ import 'package:flutter_cbt_app/presentation/auth/pages/login_page.dart';
 import 'package:flutter_cbt_app/presentation/home/bloc/content/content_bloc.dart';
 import 'package:flutter_cbt_app/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter_cbt_app/presentation/onboarding/pages/onboarding_page.dart';
+import 'package:flutter_cbt_app/presentation/quiz/bloc/answer/answer_bloc.dart';
 import 'package:flutter_cbt_app/presentation/quiz/bloc/create_ujian/create_ujian_bloc.dart';
+import 'package:flutter_cbt_app/presentation/quiz/bloc/daftar_soal/daftar_soal_bloc.dart';
+import 'package:flutter_cbt_app/presentation/quiz/bloc/hitung_nilai/hitung_nilai_bloc.dart';
 import 'package:flutter_cbt_app/presentation/quiz/bloc/ujian_by_kategori/ujian_by_kategori_bloc.dart';
 import 'presentation/auth/bloc/login/login_bloc.dart';
 import 'presentation/auth/bloc/register/register_bloc.dart';
@@ -51,6 +54,19 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CreateUjianBloc(
+            UjianRemoteDatasource(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => DaftarSoalBloc(),
+        ),
+        BlocProvider(
+          create: (context) => HitungNilaiBloc(
+            UjianRemoteDatasource()
+          ),
+        ),
+        BlocProvider(
+          create: (context) => AnswerBloc(
             UjianRemoteDatasource(),
           ),
         ),
